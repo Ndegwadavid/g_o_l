@@ -1,35 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// src/App.jsx
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/layouts/Navbar";
+import Sidebar from "./components/layouts/Sidebar";
+import Footer from "./components/layouts/Footer";
+import Home from "./pages/Home";
+import Books from "./pages/Books";
+import Customize from "./pages/Customize";
+import "./styles/globals.css";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <Router>
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <div className="flex-1 flex pt-16">
+          <Sidebar />
+          {/* Main content wrapper with responsive margin */}
+          <div className="flex-1 md:ml-0 lg:ml-72 w-full">
+            <main className="min-h-[calc(100vh-4rem)]">
+              <div className="container mx-auto px-4 md:px-6 lg:px-8">
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/books" element={<Books />} />
+                  <Route path="/customize" element={<Customize />} />
+                </Routes>
+              </div>
+            </main>
+            <Footer />
+          </div>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </Router>
+  );
 }
-
-export default App
